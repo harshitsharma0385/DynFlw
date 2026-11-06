@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+/* ------------------------------------------------------------------
+   dynflw theme: Ink + vermilion
+   Dark by default: warm ink black, cream text, one hot vermilion accent.
+   Light available: warm cream paper, ink text, same vermilion accent.
+   Theme order: [data-theme] set by <ThemeToggle />, otherwise the
+   device setting (prefers-color-scheme), otherwise dark.
+------------------------------------------------------------------- */
+
+:root {
+  /* DARK THEME */
+  --bg: #1C1714;
+  --surface: #29211C;
+  --surface-2: #382B23;
+
+  --text: #FFF8F0;
+  --text-soft: #E9D8C9;
+  --muted: #B5A092;
+
+  --border: rgba(255, 248, 240, 0.1);
+  --border-strong: rgba(255, 248, 240, 0.3);
+
+  --accent: #D96C45;
+  --accent-text: #F08A65;
+  --accent-ink: #1C1714;
+  --accent-soft: rgba(217, 108, 69, 0.18);
+
+  --danger: #E47777;
+
+  --font-sans: 'Manrope', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Manrope', system-ui, sans-serif;
+
+  color-scheme: dark;
+  font-size: 16px;
+}
+
+:root[data-theme='light'] {
+  /* LIGHT THEME */
+  --bg: #FFF8F0;
+  --surface: #FFFFFF;
+  --surface-2: #F3E5D8;
+
+  --text: #33251F;
+  --text-soft: #5C463A;
+  --muted: #8C786B;
+
+  --border: rgba(51, 37, 31, 0.12);
+  --border-strong: rgba(51, 37, 31, 0.3);
+
+  --accent: #8B3A2B;
+  --accent-text: #A94C37;
+  --accent-ink: #FFFFFF;
+  --accent-soft: rgba(139, 58, 43, 0.12);
+
+  --danger: #B54747;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg: #FFF8F0;
+    --surface: #FFFFFF;
+    --surface-2: #F3E5D8;
+
+    --text: #33251F;
+    --text-soft: #5C463A;
+    --muted: #8C786B;
+
+    --border: rgba(51, 37, 31, 0.12);
+    --border-strong: rgba(51, 37, 31, 0.3);
+
+    --accent: #8B3A2B;
+    --accent-text: #A94C37;
+    --accent-soft: rgba(139, 58, 43, 0.12);
+    --accent-ink: #FFFFFF;
+
+    --danger: #B54747;
+
+    color-scheme: light;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Soft film grain: the "premium print" texture. Delete this block if unwanted. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+#root {
+  min-height: 100svh;
+}
+
+/* Heavy, tight, oversized headlines */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent-text);
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Theme toggle (rendered by <ThemeToggle />): sticker-style pill */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px 0 12px;
+  border: 2px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--accent);
+  transition: transform 140ms ease, box-shadow 140ms ease,
+    border-color 160ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--accent);
+}
+
+.theme-toggle:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--accent);
+}
+
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
